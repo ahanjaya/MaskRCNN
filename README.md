@@ -183,6 +183,11 @@ tensorboard --logdir=runs
 cd MaskRCNN/
 python tools/train_net.py --config-file "configs/e2e_mask_rcnn_R_50_FPN_wolf.yaml"
 ```
+
+<center>
+  <img src="./images/training_loss.png"  width="500"/> 
+</center>
+
 **Note:**
 Training will save checkpoint every 2500 iterations at OUTPUT_DIR: `MaskRCNN/log/`
 Change hyperparameter configuration `MaskRCNN/configs/e2e_mask_rcnn_R_50_FPN_wolf.yaml`:
