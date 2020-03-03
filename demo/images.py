@@ -1,11 +1,13 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 import argparse
+import random
 import time
 import cv2
 import os
 
 from maskrcnn_benchmark.config import cfg
 from predictor import COCODemo
+from glob import glob
 
 def main():
     parser = argparse.ArgumentParser(description="PyTorch Object Detection Webcam Demo")
@@ -78,28 +80,19 @@ def main():
         weight_loading=last_saved
     )
 
-    # cam = cv2.VideoCapture('/dev/C922')
-    # cam = cv2.VideoCapture('/dev/C930E')
-    cam = cv2.VideoCapture('../../dataset/robot_video/wolf_robot_cam-158.avi')  #0 56 158
-    # cam = cv2.VideoCapture('../../dataset/tripod_video/wolf_tripod_cam-0.avi')
-    
-    while True:
-        start_time = time.time()
-        ret_val, img = cam.read()
-        
-        if ret_val:
-            composite = coco_demo.run_on_opencv_image(img)
-            print("Time: {:.2f} s / img".format(time.time() - start_time))
-            print("FPS: ", 1.0 / (time.time() - start_time)) # FPS = 1 / time to process loop
-            cv2.imshow("COCO detections", composite)
-        else:
-            break
+    train_images = glob("../../dataset/robot_images/*.jpg")
+    test_images  = glob("../../dataset/tripod_images/*.jpg")
 
-        k = cv2.waitKey(1)
-        if k == 27 or k == ord('q'):
-            print('Exit with code 0')
-            break  # esc to quit
-    cv2.destroyAllWindows()
+    start_time = time.time()
+    rand_img   = random.choice(train_images)
+    print('images: {}'.format(rand_img))
+    img        = cv2.imread(rand_img)
+        
+    composite = coco_demo.run_on_opencv_image(img)
+    print("Time: {:.2f} s / img".format(time.time() - start_time))
+    cv2.imshow("COCO detections", composite)
+
+    cv2.waitKey(0)
 
 if __name__ == "__main__":
     main()

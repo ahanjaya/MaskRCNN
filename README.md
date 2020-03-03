@@ -185,7 +185,7 @@ python tools/train_net.py --config-file "configs/e2e_mask_rcnn_R_50_FPN_wolf.yam
 ```
 
 <center>
-  <img src="./images/training_loss.png"  width="500"/> 
+  <img src="./images/training_loss.png"  width="1000"/> 
 </center>
 
 **Note:**
@@ -258,7 +258,12 @@ python webcam.py
 ```
 cd MaskRCNN
 cd demo
+
+# for video / webcam testing
 python video.py
+
+# or image testing
+python images.py
 ```
 
 ---
